@@ -6,6 +6,7 @@ import Person2Icon from '@mui/icons-material/Person2';
 import FilterFramesIcon from '@mui/icons-material/FilterFrames';  
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import CategoryIcon from '@mui/icons-material/Category';
 
 
 const Sidebar = () => {
@@ -40,11 +41,18 @@ const Sidebar = () => {
         <FilterFramesIcon className="icon"/>
         <span>Orders</span>
       </li>
-      <p className="title">USER</p>
+      <Link to="/mylist">
       <li>
-        <AccountBoxIcon className="icon"/>
-        <span>Profile</span>
+        <CategoryIcon className="icon"/>
+        <span>Categories</span>
       </li>
+      </Link>
+
+      <p className="title">USER</p>
+        <li>
+          <AccountBoxIcon className="icon"/>
+          <span>Profile</span>
+        </li>
       <li>
         <PowerSettingsNewIcon className="icon"/>
         <span>Logout</span>
