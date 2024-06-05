@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./style/dark.scss";
 import Home from "./pages/home/home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/list";
@@ -9,9 +10,12 @@ import { productInputs, userInputs } from "./formsource";
 import MyList from "./pages/MyList/MyList";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { DarkModeContext } from "./context/darkModeContext";
+
 
 function App() {
 
+  const { darkMode } = useContext(DarkModeContext)
   const { currentUser } = useContext(AuthContext)
 
   const RequireAuth = ({ children }) => {
@@ -23,7 +27,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
           <Route path="/">
@@ -51,7 +55,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
