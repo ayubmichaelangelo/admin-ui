@@ -5,7 +5,7 @@ import Chart from "../../components/Chart/Chart";
 import Datatable from "../../components/datatable/Datatable";
 
 
-const Single = () => {
+const Single = ({columns}) => {
   return (
     <div className="single">
       <Sidebar />

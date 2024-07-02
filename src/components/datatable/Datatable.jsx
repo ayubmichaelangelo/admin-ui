@@ -2,7 +2,7 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom"; 
 import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc} from "firebase/firestore";
 import { db } from "../../firebase";
 
 const Datatable = ({columns}) => {
@@ -31,6 +31,15 @@ useEffect(() => {
   };
 }, [type]); 
 
+const handleDelete = async (id) => {
+  try {
+    await deleteDoc(doc(db, type, id));
+    setData(data.filter((item) => item.id !== id));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const actionColumn = [
   {
     field: "action",
@@ -41,7 +50,15 @@ const actionColumn = [
         <div className="cellAction">
           <Link to={"/" + type + "/" + params.row.id} style={{ textDecoration: "none" }}>
             <span className="viewButton">View</span>
-          </Link> 
+          </Link>
+          <span>
+	          <span
+	            className="deleteButton"
+	            onClick={() => handleDelete(params.row.id)}
+	          >
+	            Delete
+	          </span>
+	        </span>
         </div>
       );
     },
@@ -70,5 +87,6 @@ const actionColumn = [
     </div>
   );
 };
+
 
 export default Datatable;
