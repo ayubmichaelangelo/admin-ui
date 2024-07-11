@@ -30,7 +30,7 @@ const Sidebar = () => {
       </li>
       <p className="title">LIST</p>
       <Link to="/users">
-        <li>
+        <li data-testid="users">
         <Person2Icon className="icon"/>
           <span>Users</span>
         </li>
