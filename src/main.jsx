@@ -6,10 +6,11 @@ import { AuthContextProvider } from './context/AuthContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DarkModeContextProvider> 
     <AuthContextProvider>
+    <DarkModeContextProvider> 
+    
     <App />
-    </AuthContextProvider>
     </DarkModeContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
 )

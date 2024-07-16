@@ -7,11 +7,20 @@ import { db } from "../../firebase";
 
 const Datatable = ({columns}) => {
   const location = useLocation();
-  const type = location.pathname.split('/')[1];
+  const pathParts = location.pathname.split("/");
+  const type = pathParts[1];
+
+  console.log("Current path:", location.pathname);
+  console.log("Collection type:", type);
 
   const [data, setData] = useState([]);
 
 useEffect(() => {
+  if (!type) {
+    console.error("Collection type is undefined");
+    return;
+  }
+
   const unsub = onSnapshot(
     collection(db, type),
     (snapShot) => {
@@ -22,7 +31,7 @@ useEffect(() => {
       setData(list);
     },
     (error) => {
-      console.log(error);
+      console.error("Error fetching data: ", error);
     }
   );
 
@@ -36,7 +45,7 @@ const handleDelete = async (id) => {
     await deleteDoc(doc(db, type, id));
     setData(data.filter((item) => item.id !== id));
   } catch (err) {
-    console.log(err);
+    console.error("Error deleting document: ", err);
   }
 };
 
@@ -68,14 +77,16 @@ const actionColumn = [
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        {type.toUpperCase()}
-        <Link to={"/" + type + "/new"} className="link">
-          Add New
-        </Link>
+      {type ? type.toUpperCase() : "DATA"}
+        {type && (
+          <Link to={`/${type}/new`} className="link">
+            Add New
+          </Link>
+        )}
       </div>
         <DataGrid className="datagrid" 
         rows={data}
-        columns={columns.concat(actionColumn)}
+        columns={columns ? columns.concat(actionColumn) : actionColumn}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },

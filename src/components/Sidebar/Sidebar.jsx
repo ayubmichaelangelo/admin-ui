@@ -24,10 +24,11 @@ const Sidebar = () => {
   <div className="center">
     <ul>
       <p className="title">MAIN</p>
+      <Link to="/">
       <li>
         <SpaceDashboardIcon className="icon"/>
         <span>Dashboard</span>
-      </li>
+      </li></Link>
       <p className="title">LIST</p>
       <Link to="/users">
         <li data-testid="users">
@@ -45,7 +46,7 @@ const Sidebar = () => {
         <FilterFramesIcon className="icon"/>
         <span>Orders</span>
       </li>
-      <Link to="/mylist">
+      <Link to="/categories">
       <li>
         <CategoryIcon className="icon"/>
         <span>Categories</span>
