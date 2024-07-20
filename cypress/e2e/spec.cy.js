@@ -7,25 +7,52 @@ describe('template spec', () => {
     cy.get('input#email')
       .should('be.visible')
       .should('have.attr', 'placeholder', 'Enter your email')
-      .type('ayub.michaelangelo@gmail.com').should('have.value', 'ayub.michaelangelo@gmail.com')
+      .type('admin@store.com').should('have.value', 'admin@store.com')
 
     cy.get('input#password')
       .should('be.visible')
-      .should('have.attr', 'placeholder', 'password')
-      .type('ayub123').should('have.value', 'ayub123')   
+      .should('have.attr', 'placeholder', 'Enter your password')
+      .type('123456').should('have.value', '123456')   
 
       cy.get('[data-testid="submit"]').click()
 
       cy.get('div.home')
-          .should('be.visible')
+        .should('be.visible')
 
-          cy.get('div.sidebar')
+        cy.get('div.sidebar')
           .should('be.visible') 
-        
-        cy.get('[data-testid="users"]').click()
-        
-        cy.url().should('include', '/users')
-      
-        cy.get('div.datatableTitle').contains('USERS')
+
+        cy.get('[data-testid="categories"]').click()
+
+        cy.url().should('include', '/categories')
+
+        cy.get('div.datatableTitle').contains('CATEGORIES')
+
+        cy.get('[data-testid="link"]').click()
+
+    cy.url().should('include', '/categories/new')
+
+    cy.get('input#name')
+    .type('Appetizer')
+
+    cy.get('[data-testid="submit"]').click()
+
+    cy.get('.MuiDataGrid-virtualScrollerRenderZone').should('be.visible');
+
+    // Temukan baris dengan data 'Appetizer'
+    cy.contains('.MuiDataGrid-row', 'Appetizer').as('appetizerRow');
+
+    // Pastikan baris 'Appetizer' ada di dalam tabel
+    cy.get('@appetizerRow').should('exist');
+
+    // Klik tombol Delete pada baris 'Appetizer'
+    cy.get('@appetizerRow').within(() => {
+      cy.get('.deleteButton').click();
+    });
+
+    // Verifikasi bahwa baris 'Appetizer' tidak lagi ada di dalam tabel
+    cy.contains('.MuiDataGrid-row', 'Appetizer').should('not.exist');
+
+
   })
 })

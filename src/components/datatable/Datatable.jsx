@@ -80,7 +80,9 @@ const actionColumn = [
       {type ? type.toUpperCase() : "DATA"}
         {type && (
           <Link to={`/${type}/new`} className="link">
-            Add New
+            <li data-testid="link">
+              Add New
+            </li>
           </Link>
         )}
       </div>

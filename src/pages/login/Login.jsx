@@ -43,7 +43,7 @@ const Login = () => {
         <input
           id="password"
           type="password"
-          placeholder="password" 
+          placeholder="Enter your password" 
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" data-testid="submit">Login</button>
